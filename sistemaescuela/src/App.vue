@@ -1,16 +1,15 @@
 <template>
   <div id="app">
-    <hello></hello>
+    <test mensaje='Holiwis!' msg2='hola'></test>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello.vue'
-
+import Test from './components/Test.vue'
 export default {
   name: 'app',
   components: {
-    Hello
+    Test
   }
 }
 </script>
