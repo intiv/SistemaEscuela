@@ -1,8 +1,10 @@
 <template>
   <div id="app">
+
     <div>
     	<router-link to="/test">
-    		<button>Test</button>
+    		<button class="waves-effect waves-light red btn">Test</button>
+        <br>
 		</router-link>
     </div>
     <div id="contentRender">

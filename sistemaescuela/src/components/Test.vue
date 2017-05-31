@@ -1,7 +1,10 @@
 <template>
 	<div id="test">
-		<div id="first">
-			<input type="text" placeholder="Name" v-on:click="ChangeMessage('hola todos')" v-model="mensaje">
+		<div id="first" class="row">
+			<div class="input-field col s10 offset-l1">
+				<input type="email" id="texto" placeholder="Name" v-model="mensaje" class="validate">
+				<label for="texto" class="active">Yes</label>
+			</div>
 			<h1>{{mensaje}}</h1>
 		</div>
 

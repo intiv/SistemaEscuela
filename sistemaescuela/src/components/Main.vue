@@ -1,10 +1,12 @@
 <template>
-	<div>{{nombre}}</div>
+	<div id="root">
+		<h1>{{nombre}}</h1>
+	</div>
 </template>
 
 <script>
 	export default {
-		name: 'main',
+		name : 'main',
 		data(){
 			return{
 				nombre : 'Main Page',
