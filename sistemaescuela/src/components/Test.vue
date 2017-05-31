@@ -1,14 +1,12 @@
 <template>
 	<div id="test">
-		<div id="first" class="row">
+		<div id="container" class="row">
 			<div class="input-field col s10 offset-l1">
 				<input type="email" id="texto" placeholder="Name" v-model="mensaje" class="validate">
 				<label for="texto" class="active">Yes</label>
 			</div>
 			<h1>{{mensaje}}</h1>
 		</div>
-
-		<div id="second">no</div>
 	</div>
 
 </template>
