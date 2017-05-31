@@ -1,15 +1,18 @@
 <template>
   <div id="app">
-    <test mensaje='Holiwis!' msg2='hola'></test>
+    <div>
+    	<router-link to="/test">
+    		<button>Test</button>
+		</router-link>
+    </div>
+    <div id="contentRender">
+    	<router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import Test from './components/Test.vue'
-export default {
-  name: 'app',
-  components: {
-    Test
-  }
-}
+	export default {
+  		name: 'app'
+	}
 </script>
