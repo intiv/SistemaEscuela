@@ -1,11 +1,11 @@
 <template>
 	<div id="test">
 		<div id="container" class="row">
-			<div class="input-field col s10 offset-l1">
+			<div class="input-field col l12 m12 s12">
 				<input type="email" id="texto" placeholder="Name" v-model="mensaje" class="validate">
 				<label for="texto" class="active">Yes</label>
 			</div>
-			<h1>{{mensaje}}</h1>
+			<h1>{{mensaje}},{{msg2}}</h1>
 		</div>
 	</div>
 
@@ -16,8 +16,6 @@
 		name: 'test',
 		data() {
 			return {
-				mensaje: 'This is a test',
-				msg2: 'yes',
 				msg3: 'no'
 			}
 		},
@@ -32,20 +30,16 @@
 
 <style scoped>
 	#test{
-		margin: 1% 10%;
+		margin-top: 10px;
+		margin-right: 10px;
 		border: 3px solid red;
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		text-align: center;
 		color: #2c3e50;
 		background-color: lightblue;
 	}
-	#first{
-		margin: 0.5% 0.5%;
-		border: solid 2px orange;
+	template{
+		height: 90vh;
+		width: 90vw;
 	}
-	#second{
-		margin: 0.5% 0.5%;
-		border: solid 2px yellow;
-	}
-
 </style>

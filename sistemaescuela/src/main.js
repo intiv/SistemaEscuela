@@ -19,7 +19,8 @@ const router = new VueRouter({
 		{
 			name : 'Test',
 			path : '/test',
-			component : Test
+			component : Test,
+			props: {default:true, mensaje: 'hola', msg2:'como estas inti'} 
 		}
 	]
 })
