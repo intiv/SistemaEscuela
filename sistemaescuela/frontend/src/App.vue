@@ -5,7 +5,10 @@
         <nav>
           <div class="nav-wrapper">
             <div class="row">
-              <div class="col l12 m12 s12">
+              <div class="col l1 m1 s1">
+                  <img src="../icon.jpg" alt="icono" id="icono">
+              </div>
+              <div class="col l11 m11 s11">
                 <router-link to="/"><a class="brand-logo">&nbsp;Sistema Escuela&nbsp;</a></router-link>
                 <ul id="nav-mobile" class="right">
                   <li><router-link to="/test">Estudiantes</router-link></li>
@@ -19,12 +22,12 @@
       </div>
     </div>
     <div class="row">
-      <div id="sideNav" class="col l2 m2 s2">
+      <div id="sideNav" class="col l3 m3 s3">
         <aside>
-          asdasd
+          
         </aside>
       </div>
-      <div id="contentRender" class="col l10 m10 s10">
+      <div id="contentRender" class="col l9 m9 s9">
         <router-view></router-view>
       </div>
     </div>
@@ -38,24 +41,46 @@
 </script>
 
 <style>
+
+  #icono{
+    position: absolute;
+    height: 100%;
+    width: 8.4%; 
+    
+  }
+
+  #app{
+    width: 100vw;
+  }
+
   nav{
     background-color: #2B455E;
-    width: 100vw !important;
-    font-size: 20vw !important;
+    width: 90vw !important;
+    font-size: 15vw !important;
+    margin-left: 5vw;
+    display: block;
   }
 
   #navBar{
-    width: 100vw !important;
+    width: 100vw;
   }
 
   .brand-logo:hover{
     background-color: #1E87DA !important;
     transition: background-color 0.3s ease-in-out;
   }
+
   aside{
-    border: 1px solid black;
+    border: 1px solid red;
+    background-color: red;
+    filter: saturate(20%);
     height: 90vh;
-    margin-left: 10px
+    width: 15vw;
+  }
+
+  #sideNav{
+    width: 15vw;
+    margin-left: 5vw;
   }
 
   body{
@@ -69,11 +94,14 @@
   .col{
     padding: 0px !important;
   }
+  
 
   #contentRender{
     padding-left: 10px !important;
-    border: 1px solid red;
+    border: 1px solid lightgrey;
     height: 90vh;
-    width: 80vw;
+    width: 75vw;
+    background-color: lightgrey;
+    filter: saturate(100%);
   }
 </style>

@@ -1,6 +1,9 @@
 <template>
 	<div id="root">
-		<h1>{{nombre}}</h1>
+		<div class="row" id="contentContainer">
+			
+			
+		</div>
 	</div>
 </template>
 
@@ -14,18 +17,21 @@
 			}
 		},
 		methods : {
-			getNombre(){
+			getNombre() {
 				return this.nombre;
 			},
-			toggleShow(){
-				if(this.show==='true'){
-					this.show='false';
+			toggleShow() {
+				if(this.show ==='true'){
+					this.show ='false';
 				}else{
-					this.show='true';
+					this.show ='true';
 				}
 			}
 		}
 	}
 </script>
 
-<style scoped></style>
+<style scoped>
+	
+
+</style>

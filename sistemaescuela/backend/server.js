@@ -10,7 +10,7 @@ server.connection({
 
 server.app.db = mongo('sistemaescuela',['usuarios','tareas','avisos']);
 
-server.register([], function(err){
+server.register([require('./routes/users.js')], function(err){
 	if(err){
 		throw err;
 	}
