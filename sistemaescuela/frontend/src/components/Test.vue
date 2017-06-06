@@ -24,7 +24,10 @@
 				this.mensaje=nMsg;
 			}
 		},
-		props: ['mensaje','msg2']
+		props: ['mensaje','msg2'],
+		mounted(){
+			console.log(this.$route.path);
+		}
 	}
 </script>
 

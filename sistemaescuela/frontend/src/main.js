@@ -5,6 +5,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import Main from './components/Main.vue'
 import Test from './components/Test.vue'
+import Login from './components/Login.vue'
 import VueRouter from 'vue-router'
 
 
@@ -14,6 +15,7 @@ const router = new VueRouter({
 		{
 			name : 'Home',
 			path : '/',
+			//redirect : '/login',
 			component : Main
 		},
 		{
@@ -21,6 +23,11 @@ const router = new VueRouter({
 			path : '/test',
 			component : Test,
 			props: {default:true, mensaje: 'hola', msg2:'como estas inti'} 
+		},
+		{
+			name : 'Login',
+			path : '/login',
+			component : Login
 		}
 	]
 })

@@ -1,23 +1,35 @@
 var hapi = require('hapi');
 var joi = require('joi');
-var mongo = require('mongojs');
+var mongoose = require('mongoose');
+var inert = require('inert');
+var auth = require('hapi-auth-cookie');
 
 var server = new hapi.Server();
 server.connection({
-	host: 'localhost',
-	port: 3000
+	port: ~~process.env.PORT || 8000,
+	routes : {
+		cors : {
+			origin : ["*"]
+		}
+	}
 });
 
-server.app.db = mongo('sistemaescuela',['usuarios','tareas','avisos']);
+mongoose.connect('mongodb://localhost:27017/sistemaescuela');
 
-server.register([require('./routes/users.js')], function(err){
+var db=mongoose.connection;
+db.on('error', console.error.bind(console, 'Connection to MongoDB failed'));
+db.once('open', function callback(){
+	console.log('Connection with MongoDB succeeded');
+});
+
+server.register([inert, auth], function(err){
+	
 	if(err){
 		throw err;
 	}
 
-	server.start(function(err){
-		if(!err){
-			console.log('Server start succesful, connected at: ' + server.info.uri);
-		}
+	server.start(function(){
+		console.log('Server start succesful, connected at: ' + server.info.uri);
 	});
+
 });

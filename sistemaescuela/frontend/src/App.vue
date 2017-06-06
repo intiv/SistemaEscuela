@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="row">
-      <div id="navBar" class="col l12 m12 s12">
+      <div id="navBar" v-if="checkPath() === true" class="col l12 m12 s12">
         <nav>
           <div class="nav-wrapper">
             <div class="row">
@@ -9,7 +9,7 @@
                   <img src="../icon.jpg" alt="icono" id="icono">
               </div>
               <div class="col l10 m10 s10 ">
-                <router-link to="/"><a class="brand-logo">&nbsp;Sistema Escuela&nbsp;</a></router-link>
+                <router-link to="/"><a class="brand-logo">&nbsp; Sistema Escuela &nbsp;</a></router-link>
                 <ul id="nav-mobile" class="right">
                   <li><router-link to="/test">Estudiantes</router-link></li>
                   <li><a href="#">Maestros</a></li>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="row">
-      <div id="sideNav" class="col l3 m3 s3">
+      <div id="sideNav" v-if="checkPath() === true" class="col l3 m3 s3">
         <aside>
           <div class="sideContent">
             <a href="#"><p>Hoja de Tareas</p></a>
@@ -35,7 +35,10 @@
           </div>
         </aside>
       </div>
-      <div id="contentRender" class="col l9 m9 s9">
+      <div id="contentRender" v-if="checkPath() === true" class="col l9 m9 s9">
+        <router-view></router-view>
+      </div>
+      <div id="loginRender" v-if="checkPath() === false" class="col l9 m9 s9">
         <router-view></router-view>
       </div>
     </div>
@@ -44,7 +47,26 @@
 
 <script>
 	export default {
-  		name: 'app'
+  		name: 'app',
+      data(){
+        return{
+          ruta : '/'
+        }
+      },
+      methods : {
+        checkPath(){
+          var ruta=this.$route.path;
+          switch(ruta){
+            case '/' : return true; break;
+            case '/login' : return false; break;
+            case '/register' : return false; break;
+            default : return true; break;
+          }
+        }
+      },
+      mounted() {
+        console.log(this.$route.path);
+      }
 	}
 </script>
 
@@ -146,5 +168,11 @@
     width: 80vw;
     background-color: lightgrey;
     box-shadow: 10px 0 5px #888888;  
+  }
+</style>
+
+<style>
+  body{
+    background-image: none;
   }
 </style>
