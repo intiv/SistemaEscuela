@@ -6,7 +6,7 @@
           <div class="nav-wrapper">
             <div class="row">
               <div class="col l2 m2 s2">
-                  <img src="../icon.jpg" alt="icono" id="icono">
+                  <img src="./src/icon.jpg" alt="icono" id="icono">
               </div>
               <div class="col l10 m10 s10 ">
                 <router-link to="/"><a class="brand-logo">&nbsp; Sistema Escuela &nbsp;</a></router-link>
@@ -151,6 +151,8 @@
 
   body{
     background-color: #F7F7F8;
+    
+  
   }
 
   .row{
@@ -168,11 +170,5 @@
     width: 80vw;
     background-color: lightgrey;
     box-shadow: 10px 0 5px #888888;  
-  }
-</style>
-
-<style>
-  body{
-    background-image: none;
   }
 </style>
