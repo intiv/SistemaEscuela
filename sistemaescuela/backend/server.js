@@ -1,5 +1,5 @@
 var hapi = require('hapi');
-var joi = require('joi');
+var routes = require('./routes/routes');
 var mongoose = require('mongoose');
 var inert = require('inert');
 var auth = require('hapi-auth-cookie');
@@ -27,7 +27,7 @@ server.register([inert, auth], function(err){
 	if(err){
 		throw err;
 	}
-
+	server.route(routes.endpoints);
 	server.start(function(){
 		console.log('Server start succesful, connected at: ' + server.info.uri);
 	});

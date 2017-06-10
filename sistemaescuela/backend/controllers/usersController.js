@@ -5,12 +5,12 @@ var boom = require('boom');
 
 exports.createUser = {
 	handler : function(request, reply){
-		if(request.payload.type === 'maestro'||request.payload.type === 'padre'){
+		if(request.payload.tipo === 'maestro'||request.payload.tipo === 'padre'||request.payload.tipo ==='alumno'){
 			var newUser = new user({
-				id : request.payload.id;
-				username : request.payload.username,
-				password : SHA3(request.payload.password),
-				type : request.payload.type
+				id : request.payload.id,
+				usuario : request.payload.usuario,
+				contrasena : request.payload.contrasena, //SHA3(request.payload.contrasena),
+				tipo : request.payload.tipo
 			});
 			newUser.save(function(err){
 				if(err){
@@ -24,25 +24,6 @@ exports.createUser = {
 		}
 	}
 }
-
-exports.createStudent = {
-	handler : function(request, reply){
-		var newStudent = new student({
-			cuenta : request.payload.cuenta,
-			nombre : request.payload.nombre,
-			id_padre : request.payload.padre
-		});
-		newStudent.save(function(err){
-			if(err){
-				return reply(boom.wrap(err, 'Error agregando el alumno a la base de datos'));
-			}else{
-				return reply('Alumno creado con exito!');
-			}
-		});
-	}
-}
-
-/*
 
 exports.getAllUsers = {
 	handler : function(request, reply){
@@ -58,6 +39,42 @@ exports.getAllUsers = {
 	}
 }
 
+exports.createStudent = {
+	handler : function(request, reply){
+		var newStudent = new student({
+			cuenta : request.payload.cuenta,
+			nombre : request.payload.nombre,
+			id_padre : request.payload.id_padre
+		});
+		newStudent.save(function(err){
+			if(err){
+				return reply(boom.wrap(err, 'Error agregando el alumno a la base de datos'));
+			}else{
+				return reply('Alumno creado con exito!');
+			}
+		});
+	}
+}
+
+
+
+exports.getAllStudents = {
+	handler : function(request, reply){
+		student.find({}, function(err, students){
+			if(!err && students){
+				return reply(students);
+			}else if(!err){
+				return reply(boom.notFound());
+			}else if(err){
+				return reply(boom.wrap(err, 'Error obteniendo usuarios de la bd'));
+			}
+		});
+	}
+}
+
+
+
+/*
 exports.getUserById = {
 	handler : function(request, reply){
 		user.find({_id: request.params.id},function(err, User){
@@ -71,6 +88,7 @@ exports.getUserById = {
 		});
 	}
 }
+
 
 exports.getStudentById = {
 	handler : function(request, reply){

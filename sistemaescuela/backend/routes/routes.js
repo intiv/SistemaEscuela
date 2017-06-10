@@ -1,24 +1,29 @@
 var boom = require('boom');
 var joi = require('joi');
 var uuid = require('node-uuid');
+var user = require('../controllers/usersController');
 
 exports.endpoints = [
 	{
 		method: 'GET',
-		path: '/',
-		config: {
-			handler: function(request, reply){
-				reply('hola como estas');
-			}
-		}
+		path: '/users',
+		config: user.getAllUsers
+		
 	},
 	{
 		method: 'POST',
-		path: '/login',
-		config: {
-			handler: function(request, reply){
-				reply('usuario creado con exito!');
-			}
-		}
+		path: '/users',
+		config: user.createUser
+	},
+	{
+		method: 'POST',
+		path: '/students',
+		config: user.createStudent
+	},
+	{
+		method: 'GET',
+		path: '/students',
+		config: user.getAllStudents
 	}
+
 ];
