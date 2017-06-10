@@ -1,12 +1,13 @@
 var mongoose = require('mongoose');
-var valid = require('mongoose-unique-validator');
+var validator = require('mongoose-unique-validator');
 
 var UserSchema = new mongoose.Schema({
 	id : Number,
 	nombre : String,
 	apellido: String,
 	tipo: String,
-	contrasena:String,
+	usuario: {type: String, required: true},
+	contrasena: {type: String, required: true},
 	fecha_de_nacimiento:String,
 	telefono:String,
 	direccion: String,
