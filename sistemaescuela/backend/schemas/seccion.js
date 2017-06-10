@@ -5,7 +5,9 @@ var Seccion = new mongoose.Schema({
 	cuenta: String,
 	grado : String,
 	apartado : String,
-	clase: String
+	ano: String,
+	maestro: String
+
 });
 
 module.exports = mongoose.model('seccion', Seccion);
