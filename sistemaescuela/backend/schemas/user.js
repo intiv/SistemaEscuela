@@ -3,10 +3,14 @@ var valid = require('mongoose-unique-validator');
 
 var UserSchema = new mongoose.Schema({
 	id : Number,
-	username : {type : String, unique : true, required : true},
-	password : String,
-	type : {type: String, required: true},
-	scope : [String]
+	nombre : String,
+	apellido: String,
+	tipo: String,
+	contrasena:String,
+	fecha_de_nacimiento:String,
+	telefono:String,
+	direccion: String,
+	correo:String
 });
 
 UserSchema.plugin(validator);
