@@ -153,37 +153,83 @@ exports.modifyUser = {
 					telefono : request.payload.telefono,
 					direccion : request.payload.direccion,
 					correo : request.payload.correo
-
 				}
 			},
 			function(err){
 				if(err){
 					return reply(boom.wrap(err, 'Usuario no encontrado'));
 				}else{
-					return reply()
+					return reply('Usuario modificado con exito!');
 				}
-			});
+			}
+		);
 	}
 }
 
 exports.modifyStudent = {
 	handler: function(request, reply){
-		student.update({
+		student.update(
 			{'_id':request.params.id},
 			{
 				$set: {
 					cuenta: request.payload.cuenta,
 					nombre: request.payload.nombre,
-					id_padre: request.payload.padre
+					id_padre: request.payload.id_padre
+				}
+			},
+			function(err){
+				if(err){
+					return reply(boom.wrap(err, 'Alumno no encontrado'));
+				}else{
+					return reply('Alumno modificado con exito!');
 				}
 			}
-		});
+		);
 	}
 }
-/*
 
 exports.deleteUser = {
 	handler : function(request, reply){
-		var 
+		user.findOne(
+			{'_id' : request.params.id},
+			function(err, User){
+				if(!err && User){
+					User.remove(function(err){
+						if(err){
+							return reply(boom.wrap(err,'Error borrando el usuario'));
+						}else{
+							return reply('Usuario borrado con exito!');
+						}
+					})
+				}else if(!err){
+					return reply(boom.notFound());
+				}else if(err){
+					return reply(boom.badRequest('No se pudo eliminar el usuario. Revise que el ID sea correcto'));
+				}
+			}
+		);
 	}
-}*/
+}
+
+exports.deleteStudent = {
+	handler: function(request, reply){
+		student.findOne(
+			{'_id' : request.params.id},
+			function(err, Student){
+				if(!err && Student){
+					Student.remove(function(err){
+						if(err){
+							return reply(boom.wrap(err, 'Ocurrio un error al intentar borrar el alumno'));
+						}else{
+							return reply('Alumno borrado con exito!');
+						}
+					});
+				}else if(!err){
+					return reply(boom.notFound());
+				}else if(err){
+					return reply(boom.badRequest('No se puedo borrar el alumno'));
+				}
+			}
+		);
+	}
+}
