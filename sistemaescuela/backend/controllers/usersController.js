@@ -8,9 +8,15 @@ exports.createUser = {
 		if(request.payload.tipo === 'maestro'||request.payload.tipo === 'padre'||request.payload.tipo ==='alumno'){
 			var newUser = new user({
 				id : request.payload.id,
+				nombre : request.payload.nombre,
+				apellido : request.payload.apellido,
 				usuario : request.payload.usuario,
-				contrasena : request.payload.contrasena, //SHA3(request.payload.contrasena),
-				tipo : request.payload.tipo
+				tipo : request.payload.tipo,
+				contrasena : request.payload.contrasena,//SHA3(request.payload.contrasena)
+				fecha_de_nacimiento : request.payload.fecha,
+				telefono : request.payload.telefono,
+				direccion : request.payload.direccion,
+				correo : request.payload.correo
 			});
 			newUser.save(function(err){
 				if(err){
@@ -72,9 +78,8 @@ exports.getAllStudents = {
 	}
 }
 
-
-
 /*
+
 exports.getUserById = {
 	handler : function(request, reply){
 		user.find({_id: request.params.id},function(err, User){
@@ -131,20 +136,51 @@ exports.getUserByName = {
 		});
 	}
 }
-
-exports.modifyUser= {
+*/
+exports.modifyUser = {
 	handler : function(request, reply){
-		user.find({_id: request.payload.id},function(err, User){
-			if(!err && User){
-				return reply(User);
-			}else if(!err){
-				return reply(boom.notFound());
-			}else if(err){
-				return reply(boom.wrap(err,'Error obteniendo el usuario de la bd'));
+		user.update(
+			{'_id':request.params.id},
+			{
+				$set: {
+					id : request.payload.id,
+					nombre : request.payload.nombre,
+					apellido : request.payload.apellido,
+					usuario : request.payload.usuario,
+					tipo : request.payload.tipo,
+					contrasena : request.payload.contrasena,
+					fecha_de_nacimiento : request.payload.fecha,
+					telefono : request.payload.telefono,
+					direccion : request.payload.direccion,
+					correo : request.payload.correo
+
+				}
+			},
+			function(err){
+				if(err){
+					return reply(boom.wrap(err, 'Usuario no encontrado'));
+				}else{
+					return reply()
+				}
+			});
+	}
+}
+
+exports.modifyStudent = {
+	handler: function(request, reply){
+		student.update({
+			{'_id':request.params.id},
+			{
+				$set: {
+					cuenta: request.payload.cuenta,
+					nombre: request.payload.nombre,
+					id_padre: request.payload.padre
+				}
 			}
 		});
 	}
 }
+/*
 
 exports.deleteUser = {
 	handler : function(request, reply){
