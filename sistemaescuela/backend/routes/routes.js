@@ -16,6 +16,16 @@ exports.endpoints = [
 		config: user.createUser
 	},
 	{
+		method: 'PUT',
+		path: '/users/{id}',
+		config: user.modifyUser
+	},
+	{
+		method: 'DELETE',
+		path: '/users/{id}',
+		config: user.deleteUser
+	},
+	{
 		method: 'POST',
 		path: '/students',
 		config: user.createStudent
@@ -24,6 +34,16 @@ exports.endpoints = [
 		method: 'GET',
 		path: '/students',
 		config: user.getAllStudents
+	},
+	{
+		method: 'PUT',
+		path: '/students/{id}',
+		config: user.modifyStudent
+	},
+	{
+		method: 'DELETE',
+		path: '/students/{id}',
+		config: user.deleteStudent
 	}
 
 ];
