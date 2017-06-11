@@ -44,6 +44,35 @@ exports.endpoints = [
 		method: 'DELETE',
 		path: '/students/{id}',
 		config: user.deleteStudent
+	},
+	{
+		method: 'GET',
+		path: '/students/search/id/{id}',
+		config: user.getStudentById
+	},
+	{
+		method: 'GET',
+		path: '/users/search/id/{id}',
+		config: user.getUserById
+	},
+	{
+		method: 'GET',
+		path: '/students/search/account/{cuenta}',
+		config: user.getStudentByAccount
+	},
+	{
+		method: 'GET',
+		path: '/students/search/name/{nombre}',
+		config: user.getStudentsByName
+	},
+	{
+		method: 'GET',
+		path: '/users/teachers',
+		config: user.getTeachers
+	},
+	{
+		method: 'GET',
+		path: '/users/teachers/{id}',
+		config: user.getTeacherById
 	}
-
 ];
