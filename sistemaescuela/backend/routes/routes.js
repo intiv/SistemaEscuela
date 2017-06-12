@@ -126,7 +126,6 @@ exports.endpoints = [
 		path: '/secciones/modificar/{id}',
 		config: seccion.modifySection
 	},
-
 	{
 		method: 'POST',
 		path: '/secciones/crear',
@@ -145,22 +144,27 @@ exports.endpoints = [
 	},
 	{
 		method: 'GET',
-		path: '/tareas/buscar/grado/{grade}',
-		config: tarea.getHomeworksByGrade
-	},
-	{
-		method: 'GET',
 		path: '/tareas/buscar/id/{id}',
 		config: tarea.getHomeworkById
 	},
 	{
 		method: 'GET',
-		path: '/tareas/buscar/maestro/{teacher}',
-		config: tarea.getHomeworksByTeacher
+		path: '/tareas/buscar/_id/{id}',
+		config: tarea.getHomeworkByMongoId
 	},
 	{
 		method: 'GET',
+		path: '/tareas/buscar/parcial/{parcial}',
+		config: tarea.getHomeworksByParcial
+	},
+	{
+		method: 'DELETE',
 		path: '/tareas/borrar/{id}',
-		config: tarea.deleteHomeworks
+		config: tarea.deleteHomework
+	},
+	{
+		method: 'PUT',
+		path: '/tareas/modificar/{id}',
+		config: tarea.modifyHomework
 	}
 ];

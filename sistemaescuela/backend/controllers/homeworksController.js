@@ -124,14 +124,14 @@ exports.modifyHomework = {
 }
 
 exports.deleteHomework = {
-	hanlder: function(request, reply){
+	handler: function(request, reply){
 		homework.findOne( { _id: request.params.id }, function(err, tarea){
 			if(!err && tarea){
 				tarea.remove(function(err){
 					if(!err){
 						return reply('Tarea eliminada con exito!');
 					}else if(err){
-						return reply(boom.wrap(err, 'Error borrando la tarea');
+						return reply(boom.wrap(err, 'Error borrando la tarea'));
 					}
 				});
 			}else if(!err){

@@ -5,11 +5,11 @@ var HomeworkSchema = new mongoose.Schema({
 	seccion: String,
 	titulo: String,
 	descripcion: String,
-	fecha_de_envio: Date,
-	fecha_de_entrega: Date,
+	fecha_de_envio: String,
+	fecha_de_entrega: String,
 	porcentaje_obtenido: Number,
 	parcial: Number,
 	valor:Number
 });
 
-module.exports = mongoose.model('homeworks', HomeworksSchema);
+module.exports = mongoose.model('homeworks', HomeworkSchema);
