@@ -3,7 +3,8 @@ var student = require('../schemas/alumno');
 var SHA3 = require('crypto-js/sha3');
 var boom = require('boom');
 
-exports.createUser = {
+//added = agregado a routes
+exports.createUser = {//added
 	handler : function(request, reply){
 		if(request.payload.tipo === 'maestro'||request.payload.tipo === 'padre'||request.payload.tipo ==='alumno'){
 			var newUser = new user({
@@ -31,7 +32,7 @@ exports.createUser = {
 	}
 }
 
-exports.getAllUsers = {
+exports.getAllUsers = {//added
 	handler : function(request, reply){
 		user.find({}, function(err, users){
 			if(!err && users){
@@ -45,7 +46,7 @@ exports.getAllUsers = {
 	}
 }
 
-exports.createStudent = {
+exports.createStudent = {//added
 	handler : function(request, reply){
 		var newStudent = new student({
 			cuenta : request.payload.cuenta,
@@ -62,9 +63,7 @@ exports.createStudent = {
 	}
 }
 
-
-
-exports.getAllStudents = {
+exports.getAllStudents = {//added
 	handler : function(request, reply){
 		student.find({}, function(err, students){
 			if(!err && students){
@@ -78,11 +77,9 @@ exports.getAllStudents = {
 	}
 }
 
-/*
-
-exports.getUserById = {
+exports.getUserById = {//added
 	handler : function(request, reply){
-		user.find({_id: request.params.id},function(err, User){
+		user.findOne({_id: request.params.id},function(err, User){
 			if(!err && User){
 				return reply(User);
 			}else if(!err){
@@ -94,10 +91,9 @@ exports.getUserById = {
 	}
 }
 
-
-exports.getStudentById = {
+exports.getStudentById = {//added
 	handler : function(request, reply){
-		student.find({_id: request.params.id},function(err, Student){
+		student.findOne({_id: request.params.id},function(err, Student){
 			if(!err && Student){
 				return reply(Student);
 			}else if(!err){
@@ -109,11 +105,11 @@ exports.getStudentById = {
 	}
 }
 
-exports.getStudentByAccount = {
+exports.getStudentByAccount = {//added
 	handler : function(request, reply){
-		user.find({cuenta: request.params.cuenta},function(err, User){
-			if(!err && User){
-				return reply(User);
+		student.findOne({cuenta: request.params.cuenta},function(err, Student){
+			if(!err && Student){
+				return reply(Student);
 			}else if(!err){
 				return reply(boom.notFound());
 			}else if(err){
@@ -123,11 +119,11 @@ exports.getStudentByAccount = {
 	}
 }
 
-exports.getUserByName = {
+exports.getStudentsByName = {//added
 	handler : function(request, reply){
-		user.find({nombre: request.params.nombre},function(err, User){
-			if(!err && User){
-				return reply(User);
+		student.find({nombre: request.params.nombre},function(err, students){
+			if(!err && students){
+				return reply(students);
 			}else if(!err){
 				return reply(boom.notFound());
 			}else if(err){
@@ -136,8 +132,35 @@ exports.getUserByName = {
 		});
 	}
 }
-*/
-exports.modifyUser = {
+
+exports.getTeachers = {
+	handler : function(request, reply){
+		user.find({tipo: 'maestro'}, function(err, Maestros){
+			if(!err && Maestros){
+				return reply(Maestros);
+			}else if(!err){
+				return reply(boom.notFound());
+			}else if(err){
+				return reply(boom.wrap(err,'Error obteniendo maestros'));
+			}
+		});
+	}
+}
+
+exports.getTeacherById = {
+	handler : function(request, reply){
+		user.findOne({_id: request.params.id, tipo: 'maestro'}, function(err, Maestro){
+			if(!err && Maestro){
+				return reply(Maestro);
+			}else if(!err){
+				return reply(boom.notFound('No existe un maestro con esa id'));
+			}else if(err){
+				return reply(boom.wrap(err,'Error obteniendo maestro'));
+			}
+		});
+	}
+}
+exports.modifyUser = {//added
 	handler : function(request, reply){
 		user.update(
 			{'_id':request.params.id},
@@ -166,7 +189,7 @@ exports.modifyUser = {
 	}
 }
 
-exports.modifyStudent = {
+exports.modifyStudent = {//added
 	handler: function(request, reply){
 		student.update(
 			{'_id':request.params.id},
@@ -188,7 +211,7 @@ exports.modifyStudent = {
 	}
 }
 
-exports.deleteUser = {
+exports.deleteUser = {//added
 	handler : function(request, reply){
 		user.findOne(
 			{'_id' : request.params.id},
@@ -211,7 +234,7 @@ exports.deleteUser = {
 	}
 }
 
-exports.deleteStudent = {
+exports.deleteStudent = {//added
 	handler: function(request, reply){
 		student.findOne(
 			{'_id' : request.params.id},
