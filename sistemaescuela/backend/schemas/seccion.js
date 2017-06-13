@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 
-var Seccion = new mongoose.Schema({
+var SeccionSchema = new mongoose.Schema({
 	cuenta: String,
 	grado : String,
 	apartado : String,
@@ -10,4 +10,4 @@ var Seccion = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('seccion', Seccion);
+module.exports = mongoose.model('seccion', SeccionSchema);

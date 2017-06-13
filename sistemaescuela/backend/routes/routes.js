@@ -3,6 +3,7 @@ var joi = require('joi');
 var uuid = require('node-uuid');
 var user = require('../controllers/usersController');
 var seccion = require('../controllers/seccionController');
+var tarea = require('../controllers/homeworksController');
 
 exports.endpoints = [
 	{
@@ -125,10 +126,45 @@ exports.endpoints = [
 		path: '/secciones/modificar/{id}',
 		config: seccion.modifySection
 	},
-
 	{
 		method: 'POST',
 		path: '/secciones/crear',
 		config: seccion.createSection
+	},
+	//tareas
+	{
+		method: 'POST',
+		path: '/tareas/crear',
+		config: tarea.createHomework
+	},
+	{
+		method: 'GET',
+		path: '/tareas',
+		config: tarea.getAllHomeworks
+	},
+	{
+		method: 'GET',
+		path: '/tareas/buscar/id/{id}',
+		config: tarea.getHomeworkById
+	},
+	{
+		method: 'GET',
+		path: '/tareas/buscar/_id/{id}',
+		config: tarea.getHomeworkByMongoId
+	},
+	{
+		method: 'GET',
+		path: '/tareas/buscar/parcial/{parcial}',
+		config: tarea.getHomeworksByParcial
+	},
+	{
+		method: 'DELETE',
+		path: '/tareas/borrar/{id}',
+		config: tarea.deleteHomework
+	},
+	{
+		method: 'PUT',
+		path: '/tareas/modificar/{id}',
+		config: tarea.modifyHomework
 	}
 ];
