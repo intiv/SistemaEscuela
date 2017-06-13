@@ -2,7 +2,8 @@ var seccion = require('../schemas/seccion');
 var SHA3 = require('crypto-js/sha3');
 var boom = require('boom');
 
-exports.createSection = {
+//added = agregado a rutas
+exports.createSection = {//added
 	handler : function(request, reply){
 		var newSeccion = new seccion({
 			cuenta: request.payload.cuenta,
@@ -22,7 +23,7 @@ exports.createSection = {
 	
 }
 
-exports.getAllSections = {
+exports.getAllSections = {//added
 	handler : function(request, reply){
 		seccion.find({}, function(err, secciones){
 			if(!err && secciones){
@@ -36,7 +37,7 @@ exports.getAllSections = {
 	}
 }
 
-exports.getSectionById = {
+exports.getSectionById = {//added
 	handler: function(request, reply){
 		seccion.findOne({_id: request.params.id}, function(err, seccion){
 			if(!err && seccion){
@@ -50,7 +51,7 @@ exports.getSectionById = {
 	}
 }
 
-exports.getSectionsByTeacher = {
+exports.getSectionsByTeacher = {//added
 	handler: function(request, reply){
 		seccion.find({maestro : request.params.maestro}, function(err, secciones){
 			if(!err && secciones){
@@ -64,7 +65,7 @@ exports.getSectionsByTeacher = {
 	}
 }
 
-exports.getSectionsByGrade = {
+exports.getSectionsByGrade = {//added
 	handler: function(request, reply){
 		seccion.find({grado : request.params.grado}, function(err, secciones){
 			if(!err && secciones){
@@ -78,7 +79,7 @@ exports.getSectionsByGrade = {
 	}
 }
 
-exports.getSectionsByYear = {
+exports.getSectionsByYear = {//added
 	handler: function(request, reply){
 		seccion.find({ano : request.params.ano}, function(err, secciones){
 			if(!err && secciones){
@@ -92,21 +93,21 @@ exports.getSectionsByYear = {
 	}	
 }
 
-exports.getSectionsByCuenta = {
+exports.getSectionByCuenta = {//added
 	handler: function(request, reply){
-		seccion.find({cuenta : request.params.cuenta}, function(err, secciones){
-			if(!err && secciones){
-				return reply(secciones);
+		seccion.findOne({cuenta : request.params.cuenta}, function(err, seccion){
+			if(!err && seccion){
+				return reply(seccion);
 			}else if(!err){
 				return reply(boom.notFound());
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo las secciones de ese cuenta'));
+				return reply(boom.wrap(err, 'Error obteniendo la seccion de esa cuenta'));
 			}
 		});
 	}
 }
 
-exports.getSectionsByApartado = {
+exports.getSectionsByApartado = {//added
 	handler: function(request, reply){
 		seccion.find({apartado : request.params.apartado}, function(err, secciones){
 			if(!err && secciones){
@@ -121,10 +122,10 @@ exports.getSectionsByApartado = {
 }
 
 
-exports.modifySection = {
+exports.modifySection = {//added
 	handler : function(request, reply){
 		seccion.update(
-			{'_id':request.params.id},
+			{ _id :request.params.id},
 			{
 				$set: {
 				cuenta: request.payload.cuenta,
@@ -145,28 +146,45 @@ exports.modifySection = {
 	}
 }
 
-
-
-exports.deleteSection = {
+exports.deleteSection = {//added
 	handler : function(request, reply){
 		seccion.findOne(
-			{'_id' : request.params.id},
+			{ _id : request.params.id},
 			function(err, Seccion){
 				if(!err && Seccion){
 					Seccion.remove(function(err){
 						if(err){
 							return reply(boom.wrap(err,'Error borrando la seccion'));
 						}else{
-							return reply(' borrado con exito!');
+							return reply('Seccion borrada con exito!');
 						}
 					})
 				}else if(!err){
 					return reply(boom.notFound());
 				}else if(err){
-					return reply(boom.badRequest('No se pudo eliminar la seccion. Revise que el ID sea correcto'));
+					return reply(boom.wrap(err, 'No se pudo eliminar la seccion. Revise que el ID sea correcto'));
 				}
 			}
 		);
 	}
 }
 
+exports.assignTeacher = {//added
+	handler : function(request, reply){
+		seccion.update(
+			{ cuenta: request.params.cuenta },
+			{
+				$set : {
+					maestro: request.payload.maestro
+				}
+			},
+			function(err){
+				if(err){
+					return reply(boom.wrap(err, 'No se pudo asignar el maestro a la seccion'));
+				}else{
+					return reply({success: true})
+				}
+			}
+		);
+	}
+}
