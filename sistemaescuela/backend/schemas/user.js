@@ -11,7 +11,8 @@ var UserSchema = new mongoose.Schema({
 	fecha_de_nacimiento:String,
 	telefono:String,
 	direccion: String,
-	correo:String
+	correo:String,
+	scope: [String]
 });
 
 UserSchema.plugin(validator);

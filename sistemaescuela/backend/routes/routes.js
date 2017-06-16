@@ -13,10 +13,14 @@ exports.endpoints = [
 		config: user.getAllUsers
 		
 	},
-
 	{
 		method: 'POST',
-		path: '/ususarios/crear',
+		path: '/login',
+		config: user.login
+	},
+	{
+		method: 'POST',
+		path: '/usuarios/crear',
 		config: user.createUser
 	},
 
@@ -150,7 +154,7 @@ exports.endpoints = [
 		method: 'DELETE',
 		path: '/secciones/borrar/{id}',
 		config: seccion.deleteSection
-	}
+	},
 	//tareas
 	{
 		method: 'POST',

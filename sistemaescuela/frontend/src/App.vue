@@ -9,12 +9,18 @@
                   <img src="./src/icon.jpg" alt="icono" id="icono">
               </div>
               <div class="col l10 m10 s10 ">
-                <router-link to="/"><a class="brand-logo">&nbsp; Sistema Escuela &nbsp;</a></router-link>
-                <ul id="nav-mobile" class="right">
-                  <li><router-link to="/test">Estudiantes</router-link></li>
-                  <li><a href="#">Maestros</a></li>
-                  <li><a href="#">Asignaciones</a></li>
-                </ul>
+                <div class="row">
+                  <div class="col l4 m4 s4">
+                  <router-link to="/"><a class="brand-logo">&nbsp; Sistema Escuela &nbsp;</a></router-link>
+                  </div>
+                  <div class="col l8 m8 s8">
+                    <ul id="nav-mobile" class="right">
+                      <li><router-link to="/test">Estudiantes</router-link></li>
+                      <li><a href="#">Maestros</a></li>
+                      <li><a href="#">Asignaciones</a></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

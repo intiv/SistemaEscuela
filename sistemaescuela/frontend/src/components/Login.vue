@@ -12,12 +12,12 @@
 			<div id="body">
 				<div class="row">
 					<div class="input-field col l10 m10 s10 offset-l1 offset-m1 offset-s1">
-						<input type="text" id="username" placeholder="Username" class="validate" v-model="usuario">	
+						<input type="text" id="username" placeholder="Username" class="validate" v-model="user.usuario">	
 					</div>
 				</div>
 				<div class="row">
 					<div class="col l10 m10 s10 offset-l1 offset-m1 offset-s1 input-field">
-						<input type="password" name="password" id="password" placeholder="Password" v-model="contra">
+						<input type="password" name="password" id="password" placeholder="Password" v-model="user.contrasena">
 					</div>
 				</div>
 				<div class="row" id="boton">
@@ -35,34 +35,50 @@
 		name : 'login',
 		data() {
 			return {
-				usuario: '',
-				contra:'',
+				user: {
+					usuario: '',
+					contrasena:''
+				},
 				valid: false
 			}
 		},
 		mounted() {
-			console.log(this.$route.path);
 		},
 		methods : {
 			verify(){
-				if(/^[a-zA-z0-9]+$/.test(this.usuario) && /^[a-zA-z0-9]+$/.test(this.contra)){
+				if(/^[a-zA-z0-9]+$/.test(this.user.usuario) && /^[a-zA-z0-9]+$/.test(this.user.contrasena)){
 					this.valid=true;
 				}else{
 					alert('Usuario y contraseña solo pueden tener letras y numeros');
 					this.valid=false;
 				}
 				if(this.valid){
-					if(this.usuario.length>0 && this.contra.length>0){
+					if(this.user.usuario.length>0 && this.user.contrasena.length>0){
 						this.valid=true;
-					}else if(this.usuario.length==0){
+					}else if(this.user.usuario.length==0){
 						this.valid=false;
 						alert('usuario no puede ser vacio');
-					}else if(this.contra.length==0){
+					}else if(this.user.contrasena.length==0){
 						this.valid=false;
 						alert('contraseña no puede ser vacia');
 					}
 					if(this.valid){
-						alert('Usuario y contra valido. Intento de login exitoso!');
+						alert(JSON.stringify(this.user));
+						this.$http.post('http://localhost:8000/login',this.user).then((response)=>{
+							if(response.body.success){
+								swal({
+									title: 'Bienvenido(a)!',
+									type: 'success'
+								});
+								this.$router.push('/');
+							}else{
+								swal({
+									title: 'Login falló!',
+									text: JSON.stringify(response.body.tipo),
+									type: 'error'
+								});
+							}
+						});
 					}
 				}
 			}

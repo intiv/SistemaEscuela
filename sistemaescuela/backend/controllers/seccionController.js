@@ -1,4 +1,4 @@
-var seccion = require('../schemas/seccion');
+ var seccion = require('../schemas/seccion');
 var SHA3 = require('crypto-js/sha3');
 var boom = require('boom');
 
