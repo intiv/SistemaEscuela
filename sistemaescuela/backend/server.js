@@ -37,3 +37,17 @@ server.register([inert, auth], function(err){
 	});
 
 });
+
+var google=require('googleapis');
+var oauth2=google.auth.OAuth2;
+
+var oauth2Client = new oauth2(
+	'449932713512-8mona5h904ro96pf09vph00pn32mk23h.apps.googleusercontent.com', //()
+	'secreto',	//secret (?)
+	'http:localhost:8000' //redirect uri (?)
+);
+
+var url=oauth2Client.generateAuthUrl({
+	access_type: 'online',
+	scope: 'https://www.googleapis.com/auth/drive'
+});

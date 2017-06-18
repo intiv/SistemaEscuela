@@ -39,48 +39,69 @@
 					usuario: '',
 					contrasena:''
 				},
-				valid: false
+				valid: true
 			}
 		},
 		mounted() {
 		},
 		methods : {
 			verify(){
+				var message='';
+				if(this.user.usuario.length==0){
+					this.valid=false;
+					message+='-Usuario no puede ser vacio\n';
+				}
+				if(this.user.contrasena.length==0){
+					this.valid=false;
+					message+='-Contraseña no puede ser vacia\n';
+				}
 				if(/^[a-zA-z0-9]+$/.test(this.user.usuario) && /^[a-zA-z0-9]+$/.test(this.user.contrasena)){
 					this.valid=true;
 				}else{
-					alert('Usuario y contraseña solo pueden tener letras y numeros');
+					message+='-Usuario y contraseña solo deben tener letras y numeros';
 					this.valid=false;
 				}
 				if(this.valid){
-					if(this.user.usuario.length>0 && this.user.contrasena.length>0){
-						this.valid=true;
-					}else if(this.user.usuario.length==0){
-						this.valid=false;
-						alert('usuario no puede ser vacio');
-					}else if(this.user.contrasena.length==0){
-						this.valid=false;
-						alert('contraseña no puede ser vacia');
-					}
 					if(this.valid){
-						alert(JSON.stringify(this.user));
 						this.$http.post('http://localhost:8000/login',this.user).then((response)=>{
 							if(response.body.success){
 								swal({
 									title: 'Bienvenido(a)!',
 									type: 'success'
 								});
+								localStorage.setItem('usuario',JSON.stringify({usuario: response.body.usuario, scope: response.body.scope}));
+								alert(JSON.parse(localStorage.getItem('usuario')).usuario);
 								this.$router.push('/');
 							}else{
+								if(response.body.tipo==='length' || response.body.tipo==='null'){
+									message+='-Usuario no encontrado. Verifique sus credenciales';
+								}else if(response.body.tipo==='err'){
+									message+='-Ocurrio un error con la BD. Verifique su coneccion a internet e intente de nuevo';
+								}
 								swal({
 									title: 'Login falló!',
-									text: JSON.stringify(response.body.tipo),
+									text: 'Razones:\n'+message,
 									type: 'error'
 								});
 							}
 						});
 					}
+				}else{
+					swal({
+						title: 'Login falló!',
+						text: 'Razones:\n'+message,
+						type: 'error'
+					});
+					this.valid=true;
 				}
+			}
+		},
+		beforeMount(){
+			if(JSON.parse(localStorage.getItem('usuario'))!=null){
+				localStorage.removeItem('usuario');
+				this.$http.put('http://localhost:8000/logout').then((response)=>{
+					alert('Cookie borrada!');
+				});
 			}
 		}
 	}
@@ -98,8 +119,8 @@
 	}
 
 	#container{
-		margin-left: 30%;
-		margin-right: 30%;
+		margin-left: 26.5%;
+		margin-right: 25%;
 		width: 45vw;
 		height: 70vh;
 		background-color: lightgrey;

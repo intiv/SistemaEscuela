@@ -17,9 +17,9 @@ exports.createHomework = {
 		});
 		newHomework.save(function(err){
 			if(err){
-				return reply(boom.wrap(err, 'Failed to insert Homework'));
+				return reply({message: boom.wrap(err, 'Failed to insert Homework'), success: false});
 			}else{
-				return reply('Homework inserted succesfully to DB');
+				return reply({message: 'Homework inserted succesfully to DB', success: true});
 			}
 		});
 	}
@@ -29,11 +29,11 @@ exports.getAllHomeworks = {
 	handler: function(request, reply){
 		homework.find({}, function(err, tareas){
 			if(!err && tareas){
-				return reply(tareas);
+				return reply({tareas: tareas, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo tareas'));
+				return reply({message: boom.wrap(err, 'Error obteniendo tareas'), success: false, tipo:'error'});
 			}
 		});
 	}
@@ -55,13 +55,14 @@ exports.getHomeworksByParcial = {
 
 exports.getHomeworkById = {
 	handler: function(request, reply){
-		homework.find({id: request.params.id}, function(err, tareas){
+		console.log(request.payload.username);
+		homework.findOne({id: request.params.id}, function(err, tareas){
 			if(!err && tareas){
-				return reply(tareas);
+				return reply({tarea: tareas, success:true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo tareas'));
+				return reply({message: boom.wrap(err, 'Error obteniendo tareas'), success: false});
 			}
 		});
 	}
@@ -71,11 +72,11 @@ exports.getHomeworkByMongoId = {
 	handler: function(request, reply){
 		homework.find({_id: request.params.id}, function(err, tareas){
 			if(!err && tareas){
-				return reply(tareas);
+				return reply({tareas: tareas, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo tareas'));
+				return reply({message: boom.wrap(err, 'Error obteniendo tareas'), success: false, tipo: 'error'});
 			}
 		});
 	}
@@ -85,11 +86,11 @@ exports.getHomeworksBySection = {
 	handler: function(request, reply){
 		homework.find({seccion: request.oarams.seccion}, function(err, tareas){
 			if(!err && tareas){
-				return reply(tareas);
+				return reply({tareas: tareas, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: true});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo tareas'));
+				return reply({message: boom.wrap(err, 'Error obteniendo tareas'), succes: true});
 			}
 		});
 	}
@@ -114,9 +115,9 @@ exports.modifyHomework = {
 			},
 			function(err){
 				if(err){
-					return reply(boom.notFound());
+					return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 				}else{
-					return reply({ success: true});
+					return reply({message:'Tarea modificada con exito!', success: true});
 				}
 			}
 		);
@@ -129,15 +130,15 @@ exports.deleteHomework = {
 			if(!err && tarea){
 				tarea.remove(function(err){
 					if(!err){
-						return reply('Tarea eliminada con exito!');
+						return reply({message: 'Tarea eliminada con exito!', success: true});
 					}else if(err){
-						return reply(boom.wrap(err, 'Error borrando la tarea'));
+						return reply({message: boom.wrap(err, 'Error borrando la tarea'), success: false, tipo:'errorDelete'});
 					}
 				});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo la tarea: No se puedo borrar'))
+				return reply({message: boom.wrap(err, 'Error obteniendo la tarea: No se puedo borrar'), success:false, tipo:'errorFind'});
 			}
 		});
 	}

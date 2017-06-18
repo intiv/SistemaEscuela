@@ -3,6 +3,33 @@ var student = require('../schemas/alumno');
 var joi = require('joi');
 var SHA3 = require('crypto-js/sha3');
 var boom = require('boom');
+var gclient = require('googleapis');
+var oauth2=gclient.auth.OAuth2;
+var oauth2client = new oauth2(
+	'449932713512-8mona5h904ro96pf09vph00pn32mk23h.apps.googleusercontent.com',
+	'XQ3qC6GyugXfxK9L2KiUPODr',
+	'http://localhost:8080/#/test'
+);
+
+
+/*
+,gconfig={
+	CLIENT_ID: '107306606676244887920',
+	CLIENT_SECRET: 'XQ3qC6GyugXfxK9L2KiUPODr',
+	SERVICE_EMAIL: 'intiv-551@saint-johns-170923.iam.gserviceaccount.com',
+	JSON_FILE_PATH: './saint johns-0b00034b95eb.json'
+
+},
+jwtClient=new gclient.auth.JWT(
+	gconfig.CLIENT_ID,
+	gconfig.JSON_FILE_PATH,
+	gconfig.CLIENT_SECRET,
+	[
+	'https://www.googleapis.com/auth/drive',
+	'https://www.googleapis.com/auth/admin.reports.audit.readonly'
+	],
+	gconfig.SERVICE_EMAIL
+);*/
 
 //added = agregado a routes
 exports.createUser = {//added
@@ -153,9 +180,9 @@ exports.modifyUser = {//added
 			},
 			function(err){
 				if(err){
-					return reply(boom.wrap(err, 'Usuario no encontrado'));
+					return reply({message: boom.wrap(err, 'Usuario no encontrado'), success: false, tipo:'error'});
 				}else{
-					return reply('Usuario modificado con exito!');
+					return reply({message: 'Usuario modificado con exito!', success: true});
 				}
 			}
 		);
@@ -170,18 +197,63 @@ exports.deleteUser = {//added
 				if(!err && User){
 					User.remove(function(err){
 						if(err){
-							return reply(boom.wrap(err,'Error borrando el usuario'));
+							return reply({message: boom.wrap(err,'Error borrando el usuario'), success: false, tipo:'errorDelete'});
 						}else{
-							return reply('Usuario borrado con exito!');
+							return reply({message: 'Usuario borrado con exito!', success: true});
 						}
 					})
 				}else if(!err){
-					return reply(boom.notFound());
+					return reply({message: boom.notFound(), tipo:'notFound', success: false});
 				}else if(err){
-					return reply(boom.badRequest('No se pudo eliminar el usuario. Revise que el ID sea correcto'));
+					return reply({message: boom.wrap(err, 'Ocurrio un error borrando el usuario'), success: false, tipo:'errorFind'});
 				}
 			}
 		);
 	}
 }
 
+insertTest= function(drive){
+	drive.files.create({
+		resource: {
+			name: 'Test',
+			mimeType: 'text/plain'
+		},
+		media: {
+			mimeType: 'text/plain',
+			body: 'Ipsum Lorem!'
+		}
+	},
+	function(err, resp) {
+		if (err) {
+			
+			console.log('insert error: ', err);
+		} else {
+			console.log(drive.files.list());
+			console.log('File created. See id following:',resp);
+		}
+	}
+	);
+}
+
+exports.uploadFile = {
+	handler: function(request, reply){
+		var url=oauth2client.generateAuthUrl({
+			access_type: 'online',
+			scopes: ['https://www.googleapis.com/auth/drive']
+		});
+		console.log(url);
+		//oauth2client.getToken
+		/*jwtClient.authorize(function(err, tokens) {
+			if (err) {
+				return reply("Error authorizing with JWT, "+err);
+			}
+			var drive = gclient.drive({
+				version: 'v2',
+				auth: jwtClient
+			});
+			insertTest(drive);
+			return reply('FUNCIONO (probably not)')
+		});*/
+	
+	}
+}

@@ -1,7 +1,7 @@
 <template>
 	<div id="root">
 		<div class="row" id="contentContainer">
-			
+			Hola
 			
 		</div>
 	</div>
@@ -26,6 +26,12 @@
 				}else{
 					this.show ='true';
 				}
+			}
+		},
+		beforeMount(){
+			if(JSON.parse(localStorage.getItem('usuario'))===null){
+				swal('No puede acceder a esta pagina!','Debe hacer login antes de acceder a la pagina','warning');
+				this.$router.push('/login');
 			}
 		}
 	}
