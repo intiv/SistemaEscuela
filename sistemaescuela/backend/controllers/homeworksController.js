@@ -3,6 +3,12 @@ var boom = require('boom');
 var seccion = require('../schemas/seccion.js');
 
 exports.createHomework = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro']
+	// },
+	auth: false,
 	handler : function(request, reply) {
 		var newHomework = new homework({
 			id : request.payload.id,
@@ -26,6 +32,12 @@ exports.createHomework = {
 }
 
 exports.getAllHomeworks = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro', 'admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.find({}, function(err, tareas){
 			if(!err && tareas){
@@ -40,6 +52,12 @@ exports.getAllHomeworks = {
 }
 
 exports.getHomeworksByParcial = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.find({parcial: request.params.parcial}, function(err, tareas){
 			if(!err && tareas){
@@ -54,6 +72,12 @@ exports.getHomeworksByParcial = {
 }
 
 exports.getHomeworkById = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		console.log(request.payload.username);
 		homework.findOne({id: request.params.id}, function(err, tareas){
@@ -69,6 +93,12 @@ exports.getHomeworkById = {
 }
 
 exports.getHomeworkByMongoId = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.find({_id: request.params.id}, function(err, tareas){
 			if(!err && tareas){
@@ -83,6 +113,12 @@ exports.getHomeworkByMongoId = {
 }
 
 exports.getHomeworksBySection = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.find({seccion: request.oarams.seccion}, function(err, tareas){
 			if(!err && tareas){
@@ -97,6 +133,12 @@ exports.getHomeworksBySection = {
 }
 
 exports.modifyHomework = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.update(
 			{ _id : request.params.id }, 
@@ -125,6 +167,12 @@ exports.modifyHomework = {
 }
 
 exports.deleteHomework = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.findOne( { _id: request.params.id }, function(err, tarea){
 			if(!err && tarea){

@@ -1,6 +1,12 @@
 var student = require('../schemas/alumno');
 
 exports.createStudent = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		var newStudent = new student({
 			cuenta : request.payload.cuenta,
@@ -18,6 +24,12 @@ exports.createStudent = {//added
 }
 
 exports.getAllStudents = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		student.find({}, function(err, students){
 			if(!err && students){
@@ -32,6 +44,12 @@ exports.getAllStudents = {//added
 }
 
 exports.getStudentById = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		student.findOne({_id: request.params.id},function(err, Student){
 			if(!err && Student){
@@ -46,6 +64,12 @@ exports.getStudentById = {//added
 }
 
 exports.getStudentByAccount = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		student.findOne({cuenta: request.params.cuenta},function(err, Student){
 			if(!err && Student){
@@ -60,6 +84,12 @@ exports.getStudentByAccount = {//added
 }
 
 exports.getStudentsByName = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		student.find({nombre: request.params.nombre},function(err, students){
 			if(!err && students){
@@ -74,6 +104,12 @@ exports.getStudentsByName = {//added
 }
 
 exports.modifyStudent = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		student.update(
 			{'_id':request.params.id},
@@ -96,6 +132,12 @@ exports.modifyStudent = {//added
 }
 
 exports.deleteStudent = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		student.findOne(
 			{'_id' : request.params.id},

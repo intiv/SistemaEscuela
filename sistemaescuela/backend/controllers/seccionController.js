@@ -4,6 +4,12 @@ var boom = require('boom');
 
 //added = agregado a rutas
 exports.createSection = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		var newSeccion = new seccion({
 			cuenta: request.payload.cuenta,
@@ -24,6 +30,12 @@ exports.createSection = {//added
 }
 
 exports.getAllSections = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		seccion.find({}, function(err, secciones){
 			if(!err && secciones){
@@ -38,6 +50,12 @@ exports.getAllSections = {//added
 }
 
 exports.getSectionById = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		seccion.findOne({_id: request.params.id}, function(err, seccion){
 			if(!err && seccion){
@@ -52,6 +70,12 @@ exports.getSectionById = {//added
 }
 
 exports.getSectionsByTeacher = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		seccion.find({maestro : request.params.maestro}, function(err, secciones){
 			if(!err && secciones){
@@ -66,6 +90,12 @@ exports.getSectionsByTeacher = {//added
 }
 
 exports.getSectionsByGrade = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		seccion.find({grado : request.params.grado}, function(err, secciones){
 			if(!err && secciones){
@@ -80,6 +110,12 @@ exports.getSectionsByGrade = {//added
 }
 
 exports.getSectionsByYear = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		seccion.find({ano : request.params.ano}, function(err, secciones){
 			if(!err && secciones){
@@ -94,6 +130,12 @@ exports.getSectionsByYear = {//added
 }
 
 exports.getSectionByCuenta = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		seccion.findOne({cuenta : request.params.cuenta}, function(err, seccion){
 			if(!err && seccion){
@@ -108,6 +150,11 @@ exports.getSectionByCuenta = {//added
 }
 
 exports.getSectionsByApartado = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','alumno','admin']
+	// },
 	handler: function(request, reply){
 		seccion.find({apartado : request.params.apartado}, function(err, secciones){
 			if(!err && secciones){
@@ -123,6 +170,12 @@ exports.getSectionsByApartado = {//added
 
 
 exports.modifySection = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		seccion.update(
 			{ _id :request.params.id},
@@ -147,6 +200,12 @@ exports.modifySection = {//added
 }
 
 exports.deleteSection = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		seccion.findOne(
 			{ _id : request.params.id},
@@ -170,6 +229,12 @@ exports.deleteSection = {//added
 }
 
 exports.assignTeacher = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		seccion.update(
 			{ cuenta: request.params.cuenta },

@@ -118,6 +118,12 @@ exports.getAllUsers = {//added
 }
 
 exports.getUserById = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		user.findOne({_id: request.params.id},function(err, User){
 			if(!err && User){
@@ -132,6 +138,12 @@ exports.getUserById = {//added
 }
 
 exports.getTeachers = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		user.find({tipo: 'maestro'}, function(err, Maestros){
 			if(!err && Maestros){
@@ -146,6 +158,12 @@ exports.getTeachers = {
 }
 
 exports.getTeacherById = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		user.findOne({_id: request.params.id, tipo: 'maestro'}, function(err, Maestro){
 			if(!err && Maestro){
@@ -160,6 +178,12 @@ exports.getTeacherById = {
 }
 
 exports.modifyUser = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		user.update(
 			{'_id':request.params.id},
@@ -190,6 +214,12 @@ exports.modifyUser = {//added
 }
 
 exports.deleteUser = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		user.findOne(
 			{'_id' : request.params.id},
