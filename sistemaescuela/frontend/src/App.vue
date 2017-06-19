@@ -77,30 +77,31 @@
 </script>
 
 <style>
+
   #icono{
     position: absolute;
     height: 100%;
-    width: 15.75%; 
+    width: 15.30%; 
   }
 
   #app{
+    margin-top: 5px;
     width: 100vw;
+    margin-left: 5px;
   }
 
   nav{
     background-color: #2B455E;
     filter: saturate(200%);
-    width: 95vw;
+    width: 98vw;
     height: 10vh;
     font-size: 10vw;
-    margin-left: 2.5vw;
     display: block;
     box-shadow: 10px 0 5px #888888;
   }
 
   #navBar{
     width: 100vw;
-
   }
 
   .sideContent{
@@ -134,21 +135,22 @@
     border: 1px solid red;
     background-color: red;
     filter: saturate(35%);
-    height: 90vh;
+    height: 88vh;
     width: 15vw;
     text-align: center;
+    margin-bottom: 5px;
 
   }
 
   #sideNav{
     width: 15vw;
-    margin-left: 2.5vw;
     
   }
 
   .sideContent{
     margin-top: 10vh;
     margin-bottom: 10vh;
+    border-radius: 1px;
   }
 
   .sideContent p{
@@ -172,8 +174,8 @@
   #contentRender{
     padding-left: 10px !important;
     border: 1px solid lightgrey;
-    height: 90vh;
-    width: 80vw;
+    height: 88vh;
+    width: 83vw;
     background-color: lightgrey;
     box-shadow: 10px 0 5px #888888;  
   }

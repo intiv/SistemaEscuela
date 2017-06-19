@@ -7,7 +7,6 @@ import Main from './components/Main.vue'
 import Test from './components/Test.vue'
 import Login from './components/Login.vue'
 import Tarea from './components/Tarea.vue'
-import Perfil from './components/Perfil.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
@@ -39,17 +38,8 @@ const router = new VueRouter({
 			name: 'Tarea',
 			path: '/tarea/:id',
 			component: Tarea
-		},
-		{
-			name: 'Alumno',
-			path: '/perfil/alumno/:cuenta',
-			component: Perfil
-		},
-		{
-			name: 'Maestro',
-			path: '/perfil/maestro/:id',
-			component: Perfil
 		}
+
 	]
 });
 
