@@ -1,6 +1,12 @@
 var student = require('../schemas/alumno');
 
 exports.createStudent = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		var newStudent = new student({
 			cuenta : request.payload.cuenta,
@@ -9,71 +15,101 @@ exports.createStudent = {//added
 		});
 		newStudent.save(function(err){
 			if(err){
-				return reply(boom.wrap(err, 'Error agregando el alumno a la base de datos'));
+				return reply(boom.wrap({message: err, success: false, tipo: 'error'}));
 			}else{
-				return reply('Alumno creado con exito!');
+				return reply({message: 'Alumno creado con exito!', success: true});
 			}
 		});
 	}
 }
 
 exports.getAllStudents = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		student.find({}, function(err, students){
 			if(!err && students){
-				return reply(students);
+				return reply({student: students, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo usuarios de la bd'));
+				return reply({message: boom.wrap(err, 'Error obteniendo usuarios de la bd'), success:false, tipo:'error'});
 			}
 		});
 	}
 }
 
 exports.getStudentById = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		student.findOne({_id: request.params.id},function(err, Student){
 			if(!err && Student){
-				return reply(Student);
+				return reply({student: Student, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo: 'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err,'Error obteniendo el estudiante de la bd (id)'));
+				return reply({message: boom.wrap(err,'Error obteniendo el estudiante de la bd (id)'), success: false, tipo: 'error'});
 			}
 		});
 	}
 }
 
 exports.getStudentByAccount = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		student.findOne({cuenta: request.params.cuenta},function(err, Student){
 			if(!err && Student){
-				return reply(Student);
+				return reply({student: Student, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo: 'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err,'Error obteniendo el usuario de la bd'));
+				return reply({message: boom.wrap(err,'Error obteniendo el usuario de la bd'), success: false, tipo:'error'});
 			}
 		});
 	}
 }
 
 exports.getStudentsByName = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler : function(request, reply){
 		student.find({nombre: request.params.nombre},function(err, students){
 			if(!err && students){
-				return reply(students);
+				return reply({students: students, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err,'Error obteniendo el usuario de la bd'));
+				return reply({message: boom.wrap(err,'Error obteniendo el usuario de la bd'), success: false, tipo:'error'});
 			}
 		});
 	}
 }
 
 exports.modifyStudent = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		student.update(
 			{'_id':request.params.id},
@@ -86,9 +122,9 @@ exports.modifyStudent = {//added
 			},
 			function(err){
 				if(err){
-					return reply(boom.wrap(err, 'Alumno no encontrado'));
+					return reply({message : boom.wrap(err, 'Alumno no encontrado'), success: false, tipo: 'error'});
 				}else{
-					return reply('Alumno modificado con exito!');
+					return reply({message: 'Alumno modificado con exito!', success: true});
 				}
 			}
 		);
@@ -96,6 +132,12 @@ exports.modifyStudent = {//added
 }
 
 exports.deleteStudent = {//added
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		student.findOne(
 			{'_id' : request.params.id},
@@ -103,15 +145,15 @@ exports.deleteStudent = {//added
 				if(!err && Student){
 					Student.remove(function(err){
 						if(err){
-							return reply(boom.wrap(err, 'Ocurrio un error al intentar borrar el alumno'));
+							return reply({message: boom.wrap(err, 'Ocurrio un error al intentar borrar el alumno'), success: false, tipo: 'errorDelete'});
 						}else{
-							return reply('Alumno borrado con exito!');
+							return reply({message: 'Alumno borrado con exito!', success: true});
 						}
 					});
 				}else if(!err){
-					return reply(boom.notFound());
+					return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 				}else if(err){
-					return reply(boom.badRequest('No se puedo borrar el alumno'));
+					return reply({message: boom.badRequest('No se puedo borrar el alumno'),tipo:'errorFind', success: false});
 				}
 			}
 		);
