@@ -119,7 +119,11 @@ exports.endpoints = [
 		path: '/secciones/buscar/id/{id}',
 		config: seccion.getSectionById
 	},
-
+	{
+		method: 'GET',
+		path: '/seccion/buscar',
+		config: seccion.getSeccion
+	},
 	{
 		method: 'GET',
 		path: '/secciones/buscar/maestro/{maestro}',
@@ -187,6 +191,11 @@ exports.endpoints = [
 		method: 'GET',
 		path: '/tareas/buscar/_id/{id}',
 		config: tarea.getHomeworkByMongoId
+	},
+	{
+		method: 'GET',
+		path: '/tareas/buscar/seccion/{seccion}',
+		config: tarea.getHomeworksBySeccion
 	},
 	{
 		method: 'GET',

@@ -9,7 +9,7 @@ var HomeworkSchema = new mongoose.Schema({
 	fecha_de_entrega: String,
 	porcentaje_obtenido: Number,
 	parcial: Number,
-	valor:Number
+	valor: Number
 });
 
 module.exports = mongoose.model('homeworks', HomeworkSchema);

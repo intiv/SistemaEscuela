@@ -217,7 +217,7 @@ exports.deleteSection = {//added
 						}else{
 							return reply({message: 'Seccion borrada con exito!', success: true});
 						}
-					})
+					});
 				}else if(!err){
 					return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 				}else if(err){
@@ -251,5 +251,30 @@ exports.assignTeacher = {//added
 				}
 			}
 		);
+	}
+}
+
+exports.getSeccion = {
+	// auth : {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['admin','alumno','maestro']
+	// },
+	auth: false,
+	handler : function(request, reply){
+		seccion.findOne({
+			cuenta: request.query.cuenta, 
+			grado: request.query.grado,
+			ano:request.query.year, 
+			apartado: request.query.apartado
+		}, function(err, Seccion){
+			if(!err && Seccion){
+				return reply({seccion: Seccion, success: true});
+			}else if(!err){
+				return reply({message: boom.notFound(), success: false, tipo: 'notFound'});
+			}else if(err){
+				return reply({message: boom.wrap(err, 'Error obteniendo Seccion'), success: false, tipo:'error'});
+			}
+		});
 	}
 }

@@ -112,7 +112,7 @@ exports.getHomeworkByMongoId = {
 	}
 }
 
-exports.getHomeworksBySection = {
+exports.getHomeworksBySeccion = {
 	// auth: {
 	// 	mode: 'required',
 	// 	strategy: 'session',
@@ -120,7 +120,7 @@ exports.getHomeworksBySection = {
 	// },
 	auth: false,
 	handler: function(request, reply){
-		homework.find({seccion: request.oarams.seccion}, function(err, tareas){
+		homework.find({seccion: request.params.seccion}, function(err, tareas){
 			if(!err && tareas){
 				return reply({tareas: tareas, success: true});
 			}else if(!err){

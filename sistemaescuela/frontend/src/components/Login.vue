@@ -100,7 +100,7 @@
 			if(JSON.parse(localStorage.getItem('usuario'))!=null){
 				localStorage.removeItem('usuario');
 				this.$http.put('http://localhost:8000/logout').then((response)=>{
-					alert('Cookie borrada!');
+					
 				});
 			}
 		}

@@ -78,6 +78,11 @@
 
 <style>
 
+  html{
+    font-family: "Roboto", sans-serif;
+    
+  }
+
   #icono{
     position: absolute;
     height: 100%;
@@ -174,9 +179,13 @@
   #contentRender{
     padding-left: 10px !important;
     border: 1px solid lightgrey;
+    display: block;
     height: 88vh;
     width: 83vw;
+    max-height: 88vh;
+    max-width: 83vw;
     background-color: lightgrey;
     box-shadow: 10px 0 5px #888888;  
+    overflow: scroll scroll;
   }
 </style>
