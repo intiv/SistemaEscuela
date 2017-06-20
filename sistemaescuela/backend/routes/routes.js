@@ -4,6 +4,7 @@ var uuid = require('node-uuid');
 var user = require('../controllers/usersController');
 var seccion = require('../controllers/seccionController');
 var tarea = require('../controllers/homeworksController');
+var student = require('../controllers/studentsController');
 
 exports.endpoints = [
 	{
@@ -52,43 +53,43 @@ exports.endpoints = [
 	{
 		method: 'POST',
 		path: '/alumnos/crear',
-		config: user.createStudent
+		config: student.createStudent
 	},
 
 	{
 		method: 'GET',
 		path: '/alumnos',
-		config: user.getAllStudents
+		config: student.getAllStudents
 	},
 
 	{
 		method: 'PUT',
 		path: '/alumnos/modificar/{id}',
-		config: user.modifyStudent
+		config: student.modifyStudent
 	},
 
 	{
 		method: 'DELETE',
 		path: '/alumnos/borrar/{id}',
-		config: user.deleteStudent
+		config: student.deleteStudent
 	},
 
 	{
 		method: 'GET',
 		path: '/alumnos/buscar/id/{id}',
-		config: user.getStudentById
+		config: student.getStudentById
 	},
 
 	{
 		method: 'GET',
 		path: '/alumnos/buscar/cuenta/{cuenta}',
-		config: user.getStudentByAccount
+		config: student.getStudentByAccount
 	},
 
 	{
 		method: 'GET',
 		path: '/alumnos/buscar/nombre/{nombre}',
-		config: user.getStudentsByName
+		config: student.getStudentsByName
 	},
 	//secciones
 	{
@@ -120,7 +121,16 @@ exports.endpoints = [
 		path: '/secciones/buscar/apartado/{apartado}',
 		config: seccion.getSectionsByApartado
 	},
-
+	{
+		method: 'GET',
+		path: '/secciones/buscar/year/{ano}',
+		config: seccion.getSectionsByYear
+	},
+	{
+		method: 'GET',
+		path: '/secciones/buscar/cuenta/{cuenta}',
+		config: seccion.getSectionByCuenta
+	},
 	{
 		method: 'PUT',
 		path: '/secciones/modificar/{id}',
@@ -131,6 +141,16 @@ exports.endpoints = [
 		path: '/secciones/crear',
 		config: seccion.createSection
 	},
+	{
+		method: 'PUT',
+		path: '/secciones/asignarMaestro/{maestro}',
+		config: seccion.assignTeacher
+	},
+	{
+		method: 'DELETE',
+		path: '/secciones/borrar/{id}',
+		config: seccion.deleteSection
+	}
 	//tareas
 	{
 		method: 'POST',
