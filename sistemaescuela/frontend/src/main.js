@@ -6,13 +6,13 @@ import App from './App.vue'
 import Main from './components/Main.vue'
 import Test from './components/Test.vue'
 import Login from './components/Login.vue'
+import Pantalla_de_maestros from './components/Pantalla_de_maestros.vue'
 import Tarea from './components/Tarea.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
-
 Vue.http.options.credentials = true;
 
 const router = new VueRouter({
@@ -35,11 +35,15 @@ const router = new VueRouter({
 			component : Login
 		},
 		{
-			name: 'Tarea',
+      name : 'Pantalla_de_maestros',
+			path : '/pantalla_de_maestros',
+			component : Pantalla_de_maestros	
+		},
+    {
+      name: 'Tarea',
 			path: '/tarea/:id',
 			component: Tarea
-		}
-
+    }
 	]
 });
 
