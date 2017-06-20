@@ -150,7 +150,7 @@ exports.endpoints = [
 		method: 'DELETE',
 		path: '/secciones/borrar/{id}',
 		config: seccion.deleteSection
-	}
+	},
 	//tareas
 	{
 		method: 'POST',
