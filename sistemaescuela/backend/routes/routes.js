@@ -7,16 +7,32 @@ var tarea = require('../controllers/homeworksController');
 var student = require('../controllers/studentsController');
 
 exports.endpoints = [
+	//test for files
+	{	
+		method: 'POST',
+		path: '/upload',
+		config: user.uploadFile
+	},
+	//end test for files
 	{
 		method: 'GET',
 		path: '/usuarios',
 		config: user.getAllUsers
 		
 	},
-
 	{
 		method: 'POST',
-		path: '/ususarios/crear',
+		path: '/login',
+		config: user.login
+	},
+	{
+		method: 'PUT',
+		path: '/logout',
+		config: user.logout
+	},
+	{
+		method: 'POST',
+		path: '/usuarios/crear',
 		config: user.createUser
 	},
 

@@ -3,6 +3,12 @@ var boom = require('boom');
 var seccion = require('../schemas/seccion.js');
 
 exports.createHomework = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro']
+	// },
+	auth: false,
 	handler : function(request, reply) {
 		var newHomework = new homework({
 			id : request.payload.id,
@@ -17,29 +23,41 @@ exports.createHomework = {
 		});
 		newHomework.save(function(err){
 			if(err){
-				return reply(boom.wrap(err, 'Failed to insert Homework'));
+				return reply({message: boom.wrap(err, 'Failed to insert Homework'), success: false});
 			}else{
-				return reply('Homework inserted succesfully to DB');
+				return reply({message: 'Homework inserted succesfully to DB', success: true});
 			}
 		});
 	}
 }
 
 exports.getAllHomeworks = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro', 'admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.find({}, function(err, tareas){
 			if(!err && tareas){
-				return reply(tareas);
+				return reply({tareas: tareas, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo tareas'));
+				return reply({message: boom.wrap(err, 'Error obteniendo tareas'), success: false, tipo:'error'});
 			}
 		});
 	}
 }
 
 exports.getHomeworksByParcial = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.find({parcial: request.params.parcial}, function(err, tareas){
 			if(!err && tareas){
@@ -54,48 +72,73 @@ exports.getHomeworksByParcial = {
 }
 
 exports.getHomeworkById = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler: function(request, reply){
-		homework.find({id: request.params.id}, function(err, tareas){
+		console.log(request.payload.username);
+		homework.findOne({id: request.params.id}, function(err, tareas){
 			if(!err && tareas){
-				return reply(tareas);
+				return reply({tarea: tareas, success:true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo tareas'));
+				return reply({message: boom.wrap(err, 'Error obteniendo tareas'), success: false});
 			}
 		});
 	}
 }
 
 exports.getHomeworkByMongoId = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.find({_id: request.params.id}, function(err, tareas){
 			if(!err && tareas){
-				return reply(tareas);
+				return reply({tareas: tareas, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo tareas'));
+				return reply({message: boom.wrap(err, 'Error obteniendo tareas'), success: false, tipo: 'error'});
 			}
 		});
 	}
 }
 
 exports.getHomeworksBySection = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin','alumno']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.find({seccion: request.oarams.seccion}, function(err, tareas){
 			if(!err && tareas){
-				return reply(tareas);
+				return reply({tareas: tareas, success: true});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: true});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo tareas'));
+				return reply({message: boom.wrap(err, 'Error obteniendo tareas'), succes: true});
 			}
 		});
 	}
 }
 
 exports.modifyHomework = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.update(
 			{ _id : request.params.id }, 
@@ -114,9 +157,9 @@ exports.modifyHomework = {
 			},
 			function(err){
 				if(err){
-					return reply(boom.notFound());
+					return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 				}else{
-					return reply({ success: true});
+					return reply({message:'Tarea modificada con exito!', success: true});
 				}
 			}
 		);
@@ -124,20 +167,26 @@ exports.modifyHomework = {
 }
 
 exports.deleteHomework = {
+	// auth: {
+	// 	mode: 'required',
+	// 	strategy: 'session',
+	// 	scope: ['maestro','admin']
+	// },
+	auth: false,
 	handler: function(request, reply){
 		homework.findOne( { _id: request.params.id }, function(err, tarea){
 			if(!err && tarea){
 				tarea.remove(function(err){
 					if(!err){
-						return reply('Tarea eliminada con exito!');
+						return reply({message: 'Tarea eliminada con exito!', success: true});
 					}else if(err){
-						return reply(boom.wrap(err, 'Error borrando la tarea'));
+						return reply({message: boom.wrap(err, 'Error borrando la tarea'), success: false, tipo:'errorDelete'});
 					}
 				});
 			}else if(!err){
-				return reply(boom.notFound());
+				return reply({message: boom.notFound(), success: false, tipo:'notFound'});
 			}else if(err){
-				return reply(boom.wrap(err, 'Error obteniendo la tarea: No se puedo borrar'))
+				return reply({message: boom.wrap(err, 'Error obteniendo la tarea: No se puedo borrar'), success:false, tipo:'errorFind'});
 			}
 		});
 	}

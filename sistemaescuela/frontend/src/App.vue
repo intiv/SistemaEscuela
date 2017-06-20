@@ -9,12 +9,18 @@
                   <img src="./src/icon.jpg" alt="icono" id="icono">
               </div>
               <div class="col l10 m10 s10 ">
-                <router-link to="/"><a class="brand-logo">&nbsp; Sistema Escuela &nbsp;</a></router-link>
-                <ul id="nav-mobile" class="right">
-                  <li><router-link to="/test">Estudiantes</router-link></li>
-                  <li><a href="#">Maestros</a></li>
-                  <li><a href="#">Asignaciones</a></li>
-                </ul>
+                <div class="row">
+                  <div class="col l4 m4 s4">
+                  <router-link to="/"><a class="brand-logo">&nbsp; Sistema Escuela &nbsp;</a></router-link>
+                  </div>
+                  <div class="col l8 m8 s8">
+                    <ul id="nav-mobile" class="right">
+                      <li><router-link to="/test">Estudiantes</router-link></li>
+                      <li><a href="#">Maestros</a></li>
+                      <li><a href="#">Asignaciones</a></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -71,30 +77,31 @@
 </script>
 
 <style>
+
   #icono{
     position: absolute;
     height: 100%;
-    width: 15.75%; 
+    width: 15.30%; 
   }
 
   #app{
+    margin-top: 5px;
     width: 100vw;
+    margin-left: 5px;
   }
 
   nav{
     background-color: #2B455E;
     filter: saturate(200%);
-    width: 95vw;
+    width: 98vw;
     height: 10vh;
     font-size: 10vw;
-    margin-left: 2.5vw;
     display: block;
     box-shadow: 10px 0 5px #888888;
   }
 
   #navBar{
     width: 100vw;
-
   }
 
   .sideContent{
@@ -128,21 +135,22 @@
     border: 1px solid red;
     background-color: red;
     filter: saturate(35%);
-    height: 90vh;
+    height: 88vh;
     width: 15vw;
     text-align: center;
+    margin-bottom: 5px;
 
   }
 
   #sideNav{
     width: 15vw;
-    margin-left: 2.5vw;
     
   }
 
   .sideContent{
     margin-top: 10vh;
     margin-bottom: 10vh;
+    border-radius: 1px;
   }
 
   .sideContent p{
@@ -166,8 +174,8 @@
   #contentRender{
     padding-left: 10px !important;
     border: 1px solid lightgrey;
-    height: 90vh;
-    width: 80vw;
+    height: 88vh;
+    width: 83vw;
     background-color: lightgrey;
     box-shadow: 10px 0 5px #888888;  
   }
